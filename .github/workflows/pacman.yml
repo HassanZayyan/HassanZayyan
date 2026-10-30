@@ -1,0 +1,39 @@
+name: Pac-Man contribution graph
+
+on:
+  schedule:
+    - cron: '17 0 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/pacman.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pacman-graph
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Generate light and dark Pac-Man graphs
+        uses: abozanona/pacman-contribution-graph@7332e1de7903ab780c3692a4127a59cc13872daa # v5.3.2
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          games: pacman
+      - name: Publish generated graphs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          cd dist
+          git init -b output
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pacman-contribution-graph.svg pacman-contribution-graph-dark.svg
+          git commit -m 'Update Pac-Man contribution graphs'
+          git push --force "https://x-access-token:$GH_TOKEN@github.com/$REPOSITORY.git" HEAD:output
