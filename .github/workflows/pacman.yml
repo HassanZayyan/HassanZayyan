@@ -1,31 +1,31 @@
-name: Pac-Man contribution graph
+name: Update public contribution arcade
 
 on:
   schedule:
-    - cron: '17 0 * * *'
+    - cron: '17 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/pacman.yml']
+    paths:
+      - '.github/workflows/pacman.yml'
+      - 'scripts/contributions.py'
 
 permissions:
   contents: write
 
 concurrency:
-  group: pacman-graph
+  group: public-contribution-arcade
   cancel-in-progress: false
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - name: Generate light and dark Pac-Man graphs
-        uses: abozanona/pacman-contribution-graph@7332e1de7903ab780c3692a4127a59cc13872daa # v5.3.2
-        with:
-          github_user_name: ${{ github.repository_owner }}
-          games: pacman
-      - name: Publish generated graphs
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Fetch and validate the public profile calendar
+        run: python3 scripts/contributions.py
+      - name: Publish the shared calendar snapshot and SVGs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
@@ -34,6 +34,6 @@ jobs:
           git init -b output
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add pacman-contribution-graph.svg pacman-contribution-graph-dark.svg
-          git commit -m 'Update Pac-Man contribution graphs'
+          git add contribution-calendar.svg pacman-contribution-graph.svg contributions.json
+          git commit -m 'Refresh validated public contribution calendar'
           git push --force "https://x-access-token:$GH_TOKEN@github.com/$REPOSITORY.git" HEAD:output
