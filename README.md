@@ -80,24 +80,6 @@ NEXT LEVEL Internal business applications & ERP integration
 
 **[Explore the case study →](https://hassanzayyan.my.id/projects/bang-deliv)** · [Backend](https://github.com/HassanZayyan/backend_bangdeliv) · [Mobile app](https://github.com/HassanZayyan/frontend_bangdeliv)
 
-## 🟡 Contribution arcade
-
-**One public calendar, two views.** Both images below are generated from the same public GitHub contribution data. They refresh every six hours; the last successful update and public contribution total are printed on each image.
-
-<img src="https://raw.githubusercontent.com/HassanZayyan/HassanZayyan/output/contribution-calendar.svg" width="100%" alt="Static public GitHub contribution calendar, including total and last successful update." />
-
-<details open>
-<summary><b>Press start — Pac-Man animation</b></summary>
-<br />
-<picture>
-<source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/HassanZayyan/HassanZayyan/output/contribution-calendar.svg" />
-<img src="https://raw.githubusercontent.com/HassanZayyan/HassanZayyan/output/pacman-contribution-graph.svg" width="100%" alt="Pac-Man eats the active days from the same public contribution calendar. The untouched grid is held for six seconds at the start of each loop." />
-</picture>
-</details>
-
-> Pac-Man eats the colored cells during each loop. The static calendar above preserves the original grid. Private activity visible only to the account owner is excluded, so the public total may differ from the total shown while signed in.
-
-[Check the original GitHub calendar](https://github.com/HassanZayyan?tab=overview#year-list-container) · [Refresh workflow](https://github.com/HassanZayyan/HassanZayyan/actions/workflows/pacman.yml) · [Public data snapshot](https://github.com/HassanZayyan/HassanZayyan/blob/output/contributions.json)
 
 ---
 
